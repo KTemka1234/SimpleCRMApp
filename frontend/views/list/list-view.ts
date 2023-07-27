@@ -1,11 +1,13 @@
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { View } from '../../views/view.js';
-import { crmStore } from 'Frontend/stores/app-store.js';
-import { listViewStore } from './list-view-store.js';
+import { crmStore, uiStore } from 'Frontend/stores/app-store.js';
+import { listViewStore } from '../../stores/list-view-store.js';
+import { UiStore } from 'Frontend/stores/ui-store.js';
 import '@vaadin/text-field';
 import '@vaadin/button';
 import '@vaadin/grid';
+import '@vaadin/notification';
 import '@vaadin/grid/vaadin-grid-column';
 import './contact-form';
 
@@ -41,6 +43,13 @@ export class ListView extends View {
           ?hidden=${!listViewStore.selectedContact}
         ></contact-form>
       </div>
+      <vaadin-notification
+        theme=${uiStore.message.error ? 'error' : 'contrast'}
+        position="bottom-start"
+        .opened=${uiStore.message.open}
+        .renderer=${(root: HTMLElement) =>
+          (root.textContent = uiStore.message.text)}
+      ></vaadin-notification>
     `;
   }
 
@@ -75,6 +84,6 @@ export class ListView extends View {
       this.firstSelectionEvent = false;
       return;
     }
-    listViewStore.selectedContact = e.detail.value;
+    listViewStore.setSelectedContact(e.detail.value);
   }
 }
