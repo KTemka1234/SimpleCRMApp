@@ -1,9 +1,9 @@
-import type { Route } from '@vaadin/router';
+import { Route } from '@vaadin/router';
 import './views/list/list-view';
+import './main-layout.ts';
 
 export type ViewRoute = Route & {
   title?: string;
-  icon?: string;
   children?: ViewRoute[];
 };
 
@@ -12,8 +12,22 @@ export const views: ViewRoute[] = [
   {
     path: '',
     component: 'list-view',
-    icon: 'file',
-    title: 'list',
+    title: 'Contacts',
+  },
+  {
+    path: 'dashboard',
+    component: 'dashboard-view',
+    title: 'Dashboard',
+    action: async () => {
+      await import('./views/dashboard/dashboard-view')
+    },
   },
 ];
-export const routes: ViewRoute[] = [...views];
+
+export const routes: ViewRoute[] = [
+  {
+    path: '',
+    component: 'main-layout',
+    children: views,
+  },
+];
