@@ -4,3 +4,6 @@ target/
 node_modules/
 frontend/generated/
 vite.generated.ts
+
+# Contains secrets that shouldn’t go into the repository
+config/local/

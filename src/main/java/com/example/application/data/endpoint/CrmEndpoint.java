@@ -13,9 +13,10 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import dev.hilla.Endpoint;
 import dev.hilla.Nonnull;
+import jakarta.annotation.security.PermitAll;
 
 @Endpoint
-@AnonymousAllowed
+@PermitAll
 public class CrmEndpoint {
     public static class CrmData {
 
